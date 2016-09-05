@@ -1,21 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import NavLink from './components/NavLink'
+import { browserHistory } from 'react-router'
 
-class App extends Component {
+export default React.createClass({
+    handleSubmit(event) {
+    event.preventDefault()
+    const query = event.target.elements[0].value
+    const path = `/search/${query}`
+    browserHistory.push(path)
+    console.log(path)
+  },
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div>
+        <h1>Movies!</h1>
+        <div className="Toolbar">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="Movie Title"/>
+            <button type="submit">Search</button>
+          </form>
+          <NavLink to="/" onlyActiveOnIndex={true}>Most Popular</NavLink>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {this.props.children}
       </div>
-    );
+    )
   }
-}
-
-export default App;
+})
