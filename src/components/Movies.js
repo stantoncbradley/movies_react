@@ -9,7 +9,7 @@ export default React.createClass({
     return (
       <ul>
         {this.props.data.map(movie => {
-          return <li><NavLink to={`/movies/${movie.id}`}>{movie.title}</NavLink></li>
+          return <li><NavLink to={`/movies/${movie.id}`}>{movie.original_title}</NavLink></li>
         })}
       </ul>
     )
