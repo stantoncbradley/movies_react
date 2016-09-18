@@ -1,17 +1,21 @@
-import React from 'react'
-import { browserHistory } from 'react-router'
-import api from '../api'
-import NavLink from './NavLink'
+import React, { PropTypes } from 'react'
+import MovieListItem from './MovieListItem'
 
-
-export default React.createClass({
-  render() {
-    return (
-      <ul>
-        {this.props.data.map(movie => {
-          return <li><NavLink to={`/movies/${movie.id}`}>{movie.original_title}</NavLink></li>
-        })}
-      </ul>
-    )
+const Movies = ({moviesData, pageTitle}) => {
+  if (moviesData.length === 0) {
+    return <div style={{textAlign: 'center'}}>(No results)</div>
   }
-})
+  return (
+    <div>
+      <h4 style={{textAlign: 'center'}}>{pageTitle}</h4>
+      {moviesData.map(movie => <MovieListItem movie={movie} key={movie.id} />)}
+    </div>
+  )
+}
+
+Movies.propTypes = {
+  moviesData: PropTypes.array,
+  pageTitle: PropTypes.string,
+}
+
+export default Movies;

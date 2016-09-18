@@ -1,29 +1,48 @@
-import React from 'react'
-import NavLink from './components/NavLink'
-import { browserHistory } from 'react-router'
+import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+import {
+  Button,
+  PageHeader,
+  Well,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Form,
+} from 'react-bootstrap';
 
-export default React.createClass({
-    handleSubmit(event) {
+class App extends Component {
+  _didSearch(event) {
     event.preventDefault()
     const query = event.target.elements[0].value
-    const path = `/search/${query}`
-    browserHistory.push(path)
-    console.log(path)
-  },
-
+    browserHistory.push(`search/${query}`)
+  }
   render() {
     return (
       <div>
-        <h1>Movies!</h1>
-        <div className="Toolbar">
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" placeholder="Movie Title"/>
-            <button type="submit">Search</button>
-          </form>
-          <NavLink to="/" onlyActiveOnIndex={true}>Most Popular</NavLink>
+        <PageHeader style={{textAlign: 'center'}}>{`Cole's Movie Explorer`}</PageHeader>
+        <div className="container">
+          <Well>
+          <Form inline onSubmit={this._didSearch}>
+            <FormGroup>
+              <ControlLabel>Search by Title:</ControlLabel>
+              {' '}
+              <FormControl
+                type="text"
+                placeholder="movie title"
+              />
+            </FormGroup>
+            {' '}
+            <Button bsStyle="primary" type="submit">Search</Button>
+          </Form>
+          </Well>
+          {' '}
+          <Well>
+            {this.props.children}
+          </Well>
         </div>
-        {this.props.children}
       </div>
     )
   }
-})
+}
+
+export default App;

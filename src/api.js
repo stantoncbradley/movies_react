@@ -8,7 +8,6 @@ export default function(path, args) {
 
     xhr.onreadystatechange = function() {
       if (this.readyState === 4) {
-        debugger;
         resolve(JSON.parse(this.response))
       }
     };
